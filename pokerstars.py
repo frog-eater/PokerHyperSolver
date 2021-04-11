@@ -133,25 +133,24 @@ def parseHH( handID ):
 			nextHandStart = nextHandStart - len(playerStacks)
 
 		finalOrderStacks.append(playerStacks[index6 + nextHandStart]);
-
-	removed = 0
-
-	for index7 in range(len(playerStacks)):
-		index7 = index7 - removed
-		if (index7 == len(finalOrderStacks)-3 or index7 == len(finalOrderStacks)-2 or index7 == len(finalOrderStacks)-1) and int(finalOrderStacks[index7]) <= 0:
-			finalOrderStacks.pop(index7)
+	
+		
+	bbFound = 0
+        while bbFound == 0:
+		lastPlayer = len(finalOrderStacks)-1
+		if finalOrderStacks[lastPlayer] == 0:
+			finalOrderStacks.pop(lastPlayer)
 			temp = finalOrderStacks[0]
-			finalOrderStacks.pop(0)
+		        finalOrderStacks.pop(0)
 			finalOrderStacks.append(temp)
+                        if temp != 0:
+				bbFound = 1
+		else:
+			bbFound = 1
+				
+	finalOrderStacks = [i for i in finalOrderStacks if i != 0]
 
-	removed = 0
-
-	for index8 in range(len(finalOrderStacks)):
-		index8 = index8 - removed
-		if int(finalOrderStacks[index8]) <= 0:
-
-			finalOrderStacks.pop(index8)
-			removed = removed + 1
+	
 
 	for num in range(0, 5):
 		if len(finalOrderStacks) < 6:
